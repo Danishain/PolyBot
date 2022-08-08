@@ -10,6 +10,9 @@ def process_msg(msg):
     search_download_youtube_video(msg)
 
     # TODO upload the downloaded video to your S3 bucket
+    s3 =boto3.client("s3", region_name='eu-north-1', aws_access_key_id='AKIAVEHYNQDCR7QXS4ZV', aws_secret_access_key='gy30R/SGYfuphCFAMCgEt0ImSqumuxyOePiMuftG')
+    s3 = boto3.resource('s3')
+    s3.meta.client.upload_file('/tmp/hello.txt', 'danishain-polybot-aws-ex1', 'home')
 
 
 def main():
