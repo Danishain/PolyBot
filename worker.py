@@ -1,18 +1,42 @@
 import json
+import logging
 import time
 import boto3
 import botocore
 from loguru import logger
 from utils import search_download_youtube_video
+from botocore.exceptions import ClientError
+import os
+
+
 
 
 def process_msg(msg):
     search_download_youtube_video(msg)
 
     # TODO upload the downloaded video to your S3 bucket
-    s3 =boto3.client("s3", region_name='eu-north-1', aws_access_key_id='AKIAVEHYNQDCR7QXS4ZV', aws_secret_access_key='gy30R/SGYfuphCFAMCgEt0ImSqumuxyOePiMuftG')
-    s3 = boto3.resource('s3')
-    s3.meta.client.upload_file('/tmp/hello.txt', 'danishain-polybot-aws-ex1', 'home')
+    def upload_file(file_name = msg, bucket="danishain-polybot-aws-ex1", object_name=None):
+        """Upload a file to an S3 bucket
+
+        :param file_name: File to upload
+        :param bucket: Bucket to upload to
+        :param object_name: S3 object name. If not specified then file_name is used
+        :return: True if file was uploaded, else False
+        """
+
+        # If S3 object_name was not specified, use file_name
+        if object_name is None:
+            object_name = os.path.basename(file_name)
+
+        # Upload the file
+        s3_client = boto3.client('s3')
+        try:
+            response = s3_client.upload_file(file_name, bucket, object_name)
+        except ClientError as e:
+            logging.error(e)
+            return False
+        return True
+
 
 
 def main():
