@@ -5,26 +5,24 @@ import botocore
 from loguru import logger
 from utils import search_download_youtube_video
 from botocore.exceptions import ClientError
-import subprocess
-import os
+
 
 
 def process_msg(msg):
-    search_download_youtube_video(msg)
-
+    ytb = search_download_youtube_video(msg)
+    if len(ytb)==0:
+        return ('No videos vy this name',msg)
+    else:
+        print('video is ', ytb[0])
+        print('msg is' , msg)
     # TODO upload the downloaded video to your S3 bucket
-
-    # Creating Session With Boto3.
-    session = boto3.Session(
-        aws_access_key_id='AKIAVEHYNQDCSCKZADHQ',
-        aws_secret_access_key='UeEdShSfYYzf5W/zvM9RbAZdt5QyJWrt5VT/1Ey1'
+    s3 = boto3.client("s3")
+    s3.upload_file(
+        Filename=ytb[0],
+        Bucket="danishain-polybot-aws-ex1",
+        Key= msg,
     )
 
-    # Creating S3 Resource From the Session.
-    s3 = session.resource('s3')
-    test = msg
-    # result = s3.Bucket('danishain-polybot-aws-ex1').upload_file(f'C:/Users/דניאל/PycharmProjects/PolyBot/{msg}','/youtube')
-    result = s3.Bucket('danishain-polybot-aws-ex1').upload_file( f"C:/Users/דניאל/PycharmProjects/PolyBot/{msg}",'/youtube')
 
 def main():
     while True:
