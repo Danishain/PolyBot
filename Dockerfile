@@ -4,4 +4,4 @@ FROM python:3.8.12-slim-buster
 # ....
 COPY . .
 RUN pip install -r requirements.txt
-CMD ["python3", "bot.py" , "worker.py"]
+CMD ["python3", "worker.py"]
