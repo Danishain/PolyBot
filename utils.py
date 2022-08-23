@@ -39,9 +39,9 @@ def calc_backlog_per_instance(sqs_queue_client, asg_client, asg_group_name):
             Namespace='danishaintarget10',
             MetricData=[
                 {
-                    "MetricName": "BacklogPerInstance_danishain",
-                    "Unit": "none",
-                    "Value": "backlog_per_instance"
+                    'MetricName': 'BacklogPerInstance_danishain',
+                    'Unit': 'None',
+                    'Value': backlog_per_instance
 
                 }
             ]
