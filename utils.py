@@ -22,7 +22,7 @@ def calc_backlog_per_instance(sqs_queue_client, asg_client, asg_group_name):
     while True:
         msgs_in_queue = int(sqs_queue_client.attributes.get('ApproximateNumberOfMessages'))
         asg_size = asg_client.describe_auto_scaling_groups(AutoScalingGroupNames=[asg_group_name])['AutoScalingGroups'][0]['DesiredCapacity']
-
+        print(msgs_in_queue)
         if msgs_in_queue == 0:
             backlog_per_instance = 0
         elif asg_size == 0:
@@ -36,16 +36,15 @@ def calc_backlog_per_instance(sqs_queue_client, asg_client, asg_group_name):
         cloudwatch = boto3.client('cloudwatch', region_name='eu-north-1')
 
         cloudwatch.put_metric_data(
-            {
-                "TargetValue": 10,
-                "CustomizedMetricSpecification": {
-                    "MetricName": "MyBacklogPerInstance_danishain",
-                    "Namespace": "danishaintarget10",
-                    "Unit": "12",
+            Namespace='danishaintarget10',
+            MetricData=[
+                {
+                    "MetricName": "BacklogPerInstance_danishain",
+                    "Unit": "none",
                     "Value": "backlog_per_instance"
-                }
-            }
 
+                }
+            ]
         )
 
         time.sleep(60)
