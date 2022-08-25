@@ -1,0 +1,9 @@
+{
+   "TargetValue":10,
+   "CustomizedMetricSpecification":{
+      "MetricName":"BacklogPerInstance_danishain",
+      "Namespace":"danishaintarget10",
+      "Statistic":"Average",
+      "Unit":"None"
+   }
+}

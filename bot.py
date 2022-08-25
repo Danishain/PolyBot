@@ -84,6 +84,15 @@ if __name__ == '__main__':
     sqs = boto3.resource('sqs', region_name=config.get('aws_region'))
     workers_queue = sqs.get_queue_by_name(QueueName=config.get('bot_to_worker_queue_name'))
     asg = boto3.client('autoscaling', region_name=config.get('aws_region'))
+    asgw = boto3.client('autoscaling')
+    with open('config2.json') as s:
+        config2 = json.load(s)
+    asgw.put_scaling_policy(
+        AutoScalingGroupName='danishain-polybot--aws-ex1',
+        PolicyName='10sqs-target-tracking-scaling-policy',
+        PolicyType='TargetTrackingScaling',
+        TargetTrackingConfiguration=config2
+        )
 
     my_bot = YoutubeObjectDetectBot(_token)
     my_bot.start()
