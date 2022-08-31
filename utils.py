@@ -1,5 +1,5 @@
 import time
-
+import json
 import boto3
 from yt_dlp import YoutubeDL
 from loguru import logger
@@ -46,5 +46,13 @@ def calc_backlog_per_instance(sqs_queue_client, asg_client, asg_group_name):
                 }
             ]
         )
-
+        asgw = boto3.client('autoscaling')
+        with open('config2.json') as s:
+            config2 = json.load(s)
+        asgw.put_scaling_policy(
+            AutoScalingGroupName='danishain-polybot--aws-ex1',
+            PolicyName='10sqs-target-tracking-scaling-policy',
+            PolicyType='TargetTrackingScaling',
+            TargetTrackingConfiguration=config2
+        )
         time.sleep(60)
