@@ -1,10 +1,10 @@
 pipeline {
     agent any
-        environment {
-            REGISTRY_URL = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
-            IMAGE_TAG = "0.0.$BUILD_NUMBER"
-            IMAGE_NAME = "danishain-bot"
-            }
+    environment {
+        REGISTRY_URL = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
+        IMAGE_TAG = "0.0.$BUILD_NUMBER"
+        IMAGE_NAME = "danishain-bot"
+        }
     stages {
         stage('Build') {
             steps {
