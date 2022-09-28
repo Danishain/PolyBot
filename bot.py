@@ -27,7 +27,7 @@ class Bot:
         context.bot.send_video(chat_id=update.message.chat_id, video=open(file_path, 'rb'), supports_streaming=True)
 
     def send_text(self, update,  text, quote=False):
-        """Sends text to a chat"""
+        """Sends text to a 5chat"""
         # retry https://github.com/python-telegram-bot/python-telegram-bot/issues/1124
         update.message.reply_text(text, quote=quote)
 
