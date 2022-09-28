@@ -26,9 +26,6 @@ pipeline {
                 docker tag $IMAGE_NAME:$IMAGE_TAG $REGISTRY_URL/$IMAGE_NAME:$IMAGE_TAG
                 docker push $REGISTRY_URL/$IMAGE_NAME:$IMAGE_TAG
                 '''
-                sh '''
-                    echo "hello"
-                    '''
             }
             post {
                 always {
