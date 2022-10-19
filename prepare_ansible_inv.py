@@ -6,7 +6,7 @@ def get_instance_name(tags):
         if tag['Key'] == 'Name':
             return tag['Value']
 
-    raise RuntimeError('Name was not found  1')
+    raise RuntimeError('Name was not found')
 
 
 def prepare_ansible_inventory():
@@ -16,7 +16,7 @@ def prepare_ansible_inventory():
     hosts = []
     for instance in instances:
         instance_name = get_instance_name(instance['Tags'])
-        instance_ip = instance['PublicIpAddress']
+        instance_ip = instance['PrivateIpAddress']
 
         hosts.append(
             f"{instance_name} ansible_host={instance_ip}\n"
