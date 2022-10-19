@@ -6,7 +6,7 @@ def get_instance_name(tags):
         if tag['Key'] == 'Name':
             return tag['Value']
 
-    raise RuntimeError('Name was not found')
+    raise RuntimeError('Name was not found  1')
 
 
 def prepare_ansible_inventory():
