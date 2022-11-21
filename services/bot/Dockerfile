@@ -3,5 +3,5 @@ WORKDIR /app
 ENV APP_PATH=services/bot
 COPY . .
 
-RUN pip install -r services/bot/requirements.txt
+RUN pip install -r */requirements.txt
 CMD ["python3", "services/bot/app.py"]
