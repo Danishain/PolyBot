@@ -11,6 +11,7 @@ pipeline {
         REGISTRY_URL = "352708296901.dkr.ecr.eu-north-1.amazonaws.com"
         IMAGE_TAG = "0.0.$BUILD_NUMBER"
         IMAGE_NAME = "danishain-bot"
+        WORKSPACE = "/home/ec2-user/workspace/dev/BotBuild/"
         }
     stages {
         stage('Build') {
@@ -19,6 +20,7 @@ pipeline {
                 sh '''
                 echo "building..."
                 aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin $REGISTRY_URL
+                cd $WORKSPACE
                 docker build -t $IMAGE_NAME:$IMAGE_TAG . -f services/bot/Dockerfile
                 docker tag $IMAGE_NAME:$IMAGE_TAG $REGISTRY_URL/$IMAGE_NAME:$IMAGE_TAG
                 docker push $REGISTRY_URL/$IMAGE_NAME:$IMAGE_TAG
