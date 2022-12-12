@@ -12,7 +12,7 @@ pipeline {
         APP_ENV = "prod"
     }
 
-    // TODO prod bot deploy pipelinee
+    // TODO prod bot deploy pipeline
     parameters {
         string(name: 'BOT_IMAGE_NAME')
     }
