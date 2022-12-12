@@ -10,7 +10,7 @@ pipeline {
     environment {
         REGISTRY_URL = "public.ecr.aws/r7m7o9d4"
         IMAGE_TAG = "0.0.$BUILD_NUMBER"
-        IMAGE_NAME = "test"
+        IMAGE_NAME = "danishain-bot-dev"
         }
     stages {
         stage('Build') {
